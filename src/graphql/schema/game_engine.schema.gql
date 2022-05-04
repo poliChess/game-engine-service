@@ -1,0 +1,33 @@
+type Query {
+    engineLevel: Int!
+    move(fen: String!, from_square: String!, to_square: String!): MoveStatus!
+    getMove(fen: String!): MoveStatus!
+}
+
+type Mutation {
+    setEngineLevel(newLevel: Int!): StandardStatus!
+}
+
+type Move {
+    fen: String!
+    from_square: String
+    to_square: String
+}
+
+interface Status {
+    success: Boolean!
+    message: String!
+}
+
+type StandardStatus implements Status {
+    success: Boolean!
+    message: String!
+}
+
+# Because of fen string validation
+type MoveStatus implements Status {
+    success: Boolean!
+    message: String!
+    # Can be null if sent fen string or move is invalid
+    move: Move
+}

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import chessEngine from "js-chess-engine";
-import isValidFen from "../fen_validator.js";
+import isValidFen from "../../fen_validator.js";
 
 const router = Router();
 
@@ -35,7 +35,7 @@ router.route('/move').post((req, res) => {
     }
 
     if (!isValidFen(fen)) {
-        return res.status(400).json("Invalid fen");
+        return res.status(400).json('Invalid fen');
     }
 
     try {
@@ -54,7 +54,7 @@ router.route('/get_move').post((req, res) => {
     }
 
     if (!isValidFen(fen)) {
-        return res.status(400).json("Invalid fen");
+        return res.status(400).json('Invalid fen');
     }
 
     try {
