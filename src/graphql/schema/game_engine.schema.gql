@@ -1,17 +1,7 @@
 type Query {
-    engineLevel: Int!
-    move(fen: String!, from_square: String!, to_square: String!): MoveStatus!
-    getMove(fen: String!): MoveStatus!
-}
-
-type Mutation {
-    setEngineLevel(newLevel: Int!): StandardStatus!
-}
-
-type Move {
-    fen: String!
-    from_square: String
-    to_square: String
+    defaultEngineLevel: Int!
+    validateMove(fen: String!, move: String!): MoveStatus!
+    suggestMove(fen: String!, engineLevel: Int): MoveStatus!
 }
 
 interface Status {
@@ -24,10 +14,9 @@ type StandardStatus implements Status {
     message: String!
 }
 
-# Because of fen string validation
 type MoveStatus implements Status {
+    move: String
+    newFen: String
     success: Boolean!
     message: String!
-    # Can be null if sent fen string or move is invalid
-    move: Move
 }
