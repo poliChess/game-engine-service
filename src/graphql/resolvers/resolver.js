@@ -27,7 +27,7 @@ const resolver = {
         const engineLevel = args.engineLevel || defaultEngineLevel;
 
         if (engineLevel < 0 || 3 < engineLevel)
-            return statusBad('bad engine level - can be {1, 2, 3}')
+            return statusBad('bad engine level - can be {1, 2, 3}');
 
         if (!isValidFen(fen))
             return statusBad('invalid fen');
@@ -41,7 +41,7 @@ const resolver = {
     
             return { move: from + to, newFen, ...statusGood };
         } catch (err) {
-            return statusBad('invalid fen: ' + err.message);
+            return statusBad('engine error: ' + err.message);
         }
     }
 };

@@ -11,7 +11,7 @@ const port = 3000;
 
 // REST
 app.use(express.json());
-app.use('/game_engine', game_engine_router);
+app.use('/engine', game_engine_router);
 
 // GraphQL
 app.use('/graphql', graphqlHTTP({
@@ -21,5 +21,5 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`game-engine-service started`);
 });
