@@ -38,7 +38,7 @@ router.route('/move/suggest').post((req, res) => {
 
     const engineLevel = req.body.engineLevel || defaultEngineLevel;
     if (engineLevel < 0 || 3 < engineLevel)
-        return res.send(statusBad('bad engine level - can be {1, 2, 3}'));
+        return res.send(statusBad('bad engine level - can be {0, 1, 2, 3}'));
 
     if (!isValidFen(fen))
         return res.send(statusBad('invalid fen'));
