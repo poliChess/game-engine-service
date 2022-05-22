@@ -1,6 +1,6 @@
 import { Router } from "express";
 import chessEngine from "js-chess-engine";
-import isValidFen from "../../fen_validator.js";
+import { isValidFen, getMoveResult } from "../../fen_analizer.js";
 
 import { statusGood, statusBad } from "../../utils.js";
 
@@ -24,7 +24,11 @@ router.route('/move/validate').post((req, res) => {
 
     try {
         const newFen = chessEngine.move(fen, move.substr(0, 2), move.substr(2, 2));
-        res.send({ move, newFen, ...statusGood });
+        
+        // Check for draw / checkmate
+        const result = getMoveResult(newFen);
+        
+        res.send({ move, newFen, result, ...statusGood });
     } catch (err) {
         res.send(statusBad('invalid move: ' + err.message));
     }
@@ -50,7 +54,10 @@ router.route('/move/suggest').post((req, res) => {
 
         const newFen = chessEngine.move(fen, from, to);
 
-        res.send({ move: from + to, newFen, ...statusGood });
+        // Check for draw / checkmate
+        const result = getMoveResult(newFen);
+
+        res.send({ move: from + to, newFen, result, ...statusGood });
     } catch (err) {
         res.send(statusBad('engine error: ' + err.message));
     }

@@ -1,5 +1,5 @@
 import chessEngine from "js-chess-engine";
-import isValidFen from "../../fen_validator.js";
+import { isValidFen, getMoveResult } from "../../fen_analizer.js";
 
 import { statusGood, statusBad } from '../../utils.js';
 
@@ -16,7 +16,11 @@ const resolver = {
     
         try {
             const newFen = chessEngine.move(fen, move.substr(0, 2), move.substr(2, 2));
-            return { move, newFen, ...statusGood };
+            
+            // Check for draw / checkmate
+            const result = getMoveResult(newFen);
+            
+            return { move, newFen, result, ...statusGood };
         } catch (err) {
             return statusBad('invalid move: ' + err.message);
         }
@@ -38,8 +42,11 @@ const resolver = {
             const to = Object.values(aiMove)[0];
     
             const newFen = chessEngine.move(fen, from, to);
+
+            // Check for draw / checkmate
+            const result = getMoveResult(newFen);
     
-            return { move: from + to, newFen, ...statusGood };
+            return { move: from + to, newFen, result, ...statusGood };
         } catch (err) {
             return statusBad('engine error: ' + err.message);
         }

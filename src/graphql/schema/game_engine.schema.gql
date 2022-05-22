@@ -17,6 +17,7 @@ type StandardStatus implements Status {
 type MoveStatus implements Status {
     move: String
     newFen: String
+    result: String
     success: Boolean!
     message: String!
 }
