@@ -17,7 +17,13 @@ type StandardStatus implements Status {
 type MoveStatus implements Status {
     move: String
     newFen: String
-    result: String
+    result: MoveResult
     success: Boolean!
     message: String!
+}
+
+enum MoveResult {
+    DRAW
+    WINNER_WHITE
+    WINNER_BLACK
 }
