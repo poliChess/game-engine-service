@@ -1,9 +1,10 @@
-import express from "express";
-import game_engine_router from "./rest/routes/game_engine.js";
+import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
 
-import { graphqlHTTP } from "express-graphql";
-import resolver from "./graphql/resolvers/resolver.js";
-import schema from "./graphql/schema/schema.js";
+import discovery from './grpc/discovery.js';
+import resolver from './graphql/resolvers/resolver.js';
+import schema from './graphql/schema/schema.js';
+import game_engine_router from './rest/routes/game_engine.js';
 
 const app = express();
 
@@ -21,5 +22,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.listen(port, () => {
-    console.log(`game-engine-service started`);
+    console.log('game-engine-service started');
 });
+
+discovery.register('game-engine-service', 'game-engine-service:3000');
