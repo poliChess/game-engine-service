@@ -21,7 +21,7 @@ const init = () => {
 
 	const proto = grpc.loadPackageDefinition(packageDefinition).api;
 
-	client = new proto.ServiceDiscovery('service-discovery:3000', grpc.credentials.createInsecure());
+	client = new proto.ServiceDiscovery('discovery-service:3000', grpc.credentials.createInsecure());
 }
 
 const register = (serviceName, serviceAddr) => {
